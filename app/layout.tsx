@@ -60,12 +60,6 @@ export default function RootLayout({
                 Board games
               </Link>
               <Link
-                href="/chat"
-                className="rounded-lg px-3 py-2 text-sm text-zinc-200 hover:bg-white/10"
-              >
-                Hỏi luật
-              </Link>
-              <Link
                 href="/contact"
                 className="rounded-lg bg-white px-3 py-2 text-sm font-semibold text-zinc-950 hover:bg-zinc-200"
               >

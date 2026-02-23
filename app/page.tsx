@@ -42,19 +42,19 @@ export default function Home() {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(255,255,255,0.16),transparent_45%),radial-gradient(circle_at_80%_30%,rgba(255,255,255,0.10),transparent_40%),radial-gradient(circle_at_50%_80%,rgba(255,255,255,0.08),transparent_45%)]" />
         <div className="mx-auto grid max-w-6xl gap-10 px-6 py-14 md:grid-cols-2 md:items-center md:py-20">
           <div>
-            <p className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-zinc-300">
+            <p className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-zinc-500">
               🎲 Board game Việt • Suy luận • Nhập vai
               <span className="opacity-70">| AR • AI (support)</span>
             </p>
 
-            <h1 className="mt-5 text-4xl font-extrabold leading-tight md:text-6xl">
+            <h1 className="mt-5 text-4xl font-semibold leading-tight md:text-6xl">
               CANH BA
-              <span className="block text-zinc-300">
+              <span className="block text-lg text-zinc-600 md:text-2xl">
                 Chợ đêm miền Tây — nơi người sống và linh hồn trà trộn
               </span>
             </h1>
 
-            <p className="mt-5 text-base text-zinc-300 md:text-lg">
+            <p className="mt-5 text-base text-zinc-600 md:text-1xl">
               Canh Ba là board game suy luận – nhập vai lấy cảm hứng từ đời sống
               sông nước Tây Nam Bộ. Người chơi tương tác, thảo luận và suy luận
               để tìm ra kẻ phản bội trước khi phiên chợ tan rã.
@@ -132,10 +132,10 @@ export default function Home() {
       {/* WHY / MARKET NEED (ngắn gọn) */}
       <section className="mx-auto max-w-6xl px-6 pb-14">
         <div className="rounded-3xl border border-white/10 bg-white/5 p-6 md:p-10">
-          <h2 className="text-2xl font-extrabold md:text-3xl">
+          <h2 className="text-2xl font-semibold md:text-3xl">
             Vì sao Canh Ba xuất hiện?
           </h2>
-          <p className="mt-3 text-zinc-300">
+          <p className="mt-3 text-zinc-600">
             Thị trường board game Việt Nam đang hình thành nhóm người chơi ổn định
             nhưng sản phẩm nhập khẩu vẫn chiếm ưu thế, còn board game nội địa
             thiếu bản sắc văn hoá rõ ràng. Canh Ba hướng đến trải nghiệm giải trí
@@ -146,7 +146,7 @@ export default function Home() {
 
       {/* DIFFERENTIATION */}
       <section className="mx-auto max-w-6xl px-6 pb-14">
-        <h2 className="text-2xl font-extrabold md:text-3xl">
+        <h2 className="text-2xl font-semibold md:text-3xl">
           Điểm khác biệt của Canh Ba
         </h2>
         <div className="mt-6 grid gap-4 md:grid-cols-2">
@@ -156,7 +156,7 @@ export default function Home() {
               className="rounded-3xl border border-white/10 bg-white/5 p-6"
             >
               <div className="text-lg font-bold">{f.title}</div>
-              <div className="mt-2 text-sm text-zinc-300">{f.desc}</div>
+              <div className="mt-2 text-sm text-zinc-600">{f.desc}</div>
             </div>
           ))}
         </div>
@@ -166,10 +166,10 @@ export default function Home() {
       <section className="mx-auto max-w-6xl px-6 pb-14">
         <div className="grid gap-6 md:grid-cols-2 md:items-start">
           <div className="rounded-3xl border border-white/10 bg-white/5 p-6 md:p-8">
-            <h2 className="text-2xl font-extrabold md:text-3xl">
+            <h2 className="text-2xl font-semibold md:text-3xl">
               Cách chơi (overview)
             </h2>
-            <ul className="mt-4 space-y-3 text-sm text-zinc-300">
+            <ul className="mt-4 space-y-3 text-sm text-zinc-600">
               {howToPlay.map((t) => (
                 <li key={t} className="flex gap-2">
                   <span className="mt-1 inline-block h-2 w-2 rounded-full bg-white/50" />
@@ -222,10 +222,10 @@ export default function Home() {
       {/* TECHNOLOGY */}
       <section className="mx-auto max-w-6xl px-6 pb-14">
         <div className="rounded-3xl border border-white/10 bg-white/5 p-6 md:p-10">
-          <h2 className="text-2xl font-extrabold md:text-3xl">
+          <h2 className="text-2xl font-semibold md:text-3xl">
             AR & Chatbox — công nghệ chỉ để hỗ trợ
           </h2>
-          <p className="mt-3 text-zinc-300">
+          <p className="mt-3 text-zinc-600">
             Canh Ba tích hợp AR để tăng cảm nhận không gian chợ đêm và hiệu ứng bối
             cảnh khi quét một số thẻ/vật phẩm. Chatbox hỗ trợ giúp người chơi tra
             cứu luật và chức năng thẻ nhanh trong lúc chơi. Các yếu tố này không
@@ -255,10 +255,10 @@ export default function Home() {
         <div className="rounded-3xl border border-white/10 bg-white/5 p-6 md:p-10">
           <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <div>
-              <div className="text-2xl font-extrabold">
+              <div className="text-2xl font-semibold">
                 Sẵn sàng khám phá phiên chợ đêm Canh Ba?
               </div>
-              <div className="mt-2 text-zinc-300">
+              <div className="mt-2 text-zinc-600">
                 Theo dõi fanpage, xem demo và hỏi luật nhanh để vào ván dễ hơn.
               </div>
             </div>
