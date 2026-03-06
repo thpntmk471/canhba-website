@@ -4,6 +4,48 @@ import { useEffect, useRef, useState } from "react";
 
 type Msg = { role: "user" | "bot"; text: string };
 
+function MicIcon() {
+    return (
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+            <path
+                d="M12 14a3 3 0 0 0 3-3V7a3 3 0 1 0-6 0v4a3 3 0 0 0 3 3Z"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+            />
+            <path
+                d="M19 11a7 7 0 0 1-14 0"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+            />
+            <path
+                d="M12 18v3"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+            />
+            <path
+                d="M8 21h8"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+            />
+        </svg>
+    );
+}
+
+function WaveIcon() {
+    return (
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+            <path d="M7 9v6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+            <path d="M11 6v12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+            <path d="M15 8v8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+            <path d="M19 10v4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+        </svg>
+    );
+}
+
 export default function ChatWidget() {
     const [open, setOpen] = useState(false);
     const [input, setInput] = useState("");
@@ -74,8 +116,8 @@ export default function ChatWidget() {
         setLoading(true);
 
         try {
-            // (Tuỳ bạn) show user bubble cho voice:
-            setMsgs((m) => [...m, { role: "user", text: "🎤 (voice)" }]);
+            // (Tuỳ bạn) Nếu muốn hiện "🎤 (voice)" bubble thì bỏ comment dòng dưới:
+            // setMsgs((m) => [...m, { role: "user", text: "🎤 (voice)" }]);
 
             const fd = new FormData();
             fd.append("audio", blob, "voice.webm");
@@ -119,7 +161,10 @@ export default function ChatWidget() {
             mr.start();
             setRecording(true);
         } catch {
-            setMsgs((m) => [...m, { role: "bot", text: "Không xin được quyền micro 😥 Bạn bật mic rồi thử lại nhé." }]);
+            setMsgs((m) => [
+                ...m,
+                { role: "bot", text: "Không xin được quyền micro 😥 Bạn bật mic rồi thử lại nhé." },
+            ]);
         }
     }
 
@@ -204,13 +249,13 @@ export default function ChatWidget() {
                         ))}
                         {(loading || recording) && (
                             <div style={{ opacity: 0.8, fontSize: 13 }}>
-                                {recording ? "Đang ghi âm... bấm ⏹ để gửi" : "Đang trả lời..."}
+                                {recording ? "Đang ghi âm... bấm lại mic để dừng & gửi" : "Đang trả lời..."}
                             </div>
                         )}
                     </div>
 
                     <div style={{ padding: 12, borderTop: "1px solid rgba(255,255,255,.08)" }}>
-                        <div style={{ display: "flex", gap: 8 }}>
+                        <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
                             <input
                                 value={input}
                                 onChange={(e) => setInput(e.target.value)}
@@ -222,7 +267,8 @@ export default function ChatWidget() {
                                 style={{
                                     flex: 1,
                                     padding: "10px 12px",
-                                    borderRadius: 10,
+                                    height: 44,
+                                    borderRadius: 14,
                                     border: "1px solid rgba(255,255,255,.15)",
                                     background: "transparent",
                                     color: "#fff",
@@ -231,23 +277,36 @@ export default function ChatWidget() {
                                 }}
                             />
 
-                            {/* Mic */}
+                            {/* Mic (đẹp) */}
                             <button
                                 onClick={recording ? stopRecording : startRecording}
                                 disabled={loading}
+                                aria-label={recording ? "Stop recording" : "Start recording"}
+                                title={recording ? "Dừng & gửi" : "Ghi âm"}
                                 style={{
                                     width: 44,
-                                    borderRadius: 10,
-                                    border: "none",
-                                    background: recording ? "#ef4444" : "rgba(255,255,255,.12)",
-                                    color: "#fff",
-                                    cursor: "pointer",
+                                    height: 44,
+                                    borderRadius: 999,
+                                    border: "1px solid rgba(255,255,255,.12)",
+                                    background: recording ? "#22c55e" : "rgba(255,255,255,.08)",
+                                    color: recording ? "#052e16" : "rgba(255,255,255,.9)",
+                                    display: "grid",
+                                    placeItems: "center",
+                                    cursor: loading ? "not-allowed" : "pointer",
                                     opacity: loading ? 0.7 : 1,
+                                    transition: "transform .08s ease, background .2s ease",
                                 }}
-                                aria-label="Voice"
-                                title={recording ? "Dừng & gửi" : "Ghi âm"}
+                                onMouseDown={(e) => {
+                                    (e.currentTarget as HTMLButtonElement).style.transform = "scale(0.98)";
+                                }}
+                                onMouseUp={(e) => {
+                                    (e.currentTarget as HTMLButtonElement).style.transform = "scale(1)";
+                                }}
+                                onMouseLeave={(e) => {
+                                    (e.currentTarget as HTMLButtonElement).style.transform = "scale(1)";
+                                }}
                             >
-                                {recording ? "⏹" : "🎤"}
+                                {recording ? <WaveIcon /> : <MicIcon />}
                             </button>
 
                             {/* Send */}
@@ -255,12 +314,14 @@ export default function ChatWidget() {
                                 onClick={() => sendText(input)}
                                 disabled={loading || recording}
                                 style={{
-                                    padding: "10px 12px",
-                                    borderRadius: 10,
-                                    border: "none",
+                                    height: 44,
+                                    padding: "0 16px",
+                                    borderRadius: 14,
+                                    border: "1px solid rgba(255,255,255,.10)",
                                     background: "#fff",
                                     color: "#000",
-                                    cursor: "pointer",
+                                    fontWeight: 700,
+                                    cursor: loading || recording ? "not-allowed" : "pointer",
                                     opacity: loading || recording ? 0.7 : 1,
                                 }}
                             >
