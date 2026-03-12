@@ -52,7 +52,7 @@ export async function POST(req: Request) {
     }
 
     return NextResponse.json({
-      reply: data.reply ?? "Không có phản hồi.",
+      reply: data.output ?? "Không có phản hồi.",
       inputType: inputType ?? "text",
     });
   } catch (e: any) {
