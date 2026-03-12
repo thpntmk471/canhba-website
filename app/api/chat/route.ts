@@ -38,21 +38,11 @@ export async function POST(req: Request) {
     try {
       data = raw ? JSON.parse(raw) : {};
     } catch {
-      data = { reply: raw || "n8n không trả JSON hợp lệ." };
-    }
-
-    if (!r.ok) {
-      return NextResponse.json(
-        {
-          reply: data.reply ?? "n8n trả lỗi.",
-          status: r.status,
-        },
-        { status: r.status }
-      );
+      data = { raw };
     }
 
     return NextResponse.json({
-      reply: data.output ?? "Không có phản hồi.",
+      reply: data.reply ?? data.output ?? data.raw ?? "Không có phản hồi.",
       inputType: inputType ?? "text",
     });
   } catch (e: any) {
