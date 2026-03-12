@@ -4,6 +4,13 @@ import { useEffect, useRef, useState } from "react";
 
 type Msg = { role: "user" | "bot"; text: string };
 
+declare global {
+    interface Window {
+        SpeechRecognition?: any;
+        webkitSpeechRecognition?: any;
+    }
+}
+
 function MicIcon() {
     return (
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
@@ -57,8 +64,7 @@ export default function ChatWidget() {
     ]);
 
     const listRef = useRef<HTMLDivElement>(null);
-    const mediaRecorderRef = useRef<MediaRecorder | null>(null);
-    const chunksRef = useRef<BlobPart[]>([]);
+    const recognitionRef = useRef<any>(null);
 
     const [sessionId] = useState(() => {
         if (typeof window === "undefined") return "web";
@@ -72,19 +78,11 @@ export default function ChatWidget() {
 
     useEffect(() => {
         if (!open) return;
-        listRef.current?.scrollTo({ top: listRef.current.scrollHeight, behavior: "smooth" });
+        listRef.current?.scrollTo({
+            top: listRef.current.scrollHeight,
+            behavior: "smooth",
+        });
     }, [msgs, open]);
-
-    function speakVI(text: string) {
-        try {
-            const u = new SpeechSynthesisUtterance(text);
-            u.lang = "vi-VN";
-            speechSynthesis.cancel();
-            speechSynthesis.speak(u);
-        } catch {
-            // ignore
-        }
-    }
 
     async function sendText(text: string) {
         const t = text.trim();
@@ -111,72 +109,94 @@ export default function ChatWidget() {
         }
     }
 
-    async function sendVoice(blob: Blob) {
-        if (loading) return;
-        setLoading(true);
-
-        try {
-            // (Tuỳ bạn) Nếu muốn hiện "🎤 (voice)" bubble thì bỏ comment dòng dưới:
-            // setMsgs((m) => [...m, { role: "user", text: "🎤 (voice)" }]);
-
-            const fd = new FormData();
-            fd.append("audio", blob, "voice.webm");
-            fd.append("sessionId", sessionId);
-            fd.append("inputType", "voice");
-
-            const r = await fetch("/api/chat", { method: "POST", body: fd });
-            const data = await r.json();
-
-            const reply = String(data?.reply ?? "Mình chưa nhận được phản hồi.");
-
-            // Voice mode: ĐỌC BẰNG GIỌNG
-            speakVI(reply);
-
-            // Nếu bạn muốn vẫn hiện chữ kèm theo thì mở comment dòng dưới:
-            // setMsgs((m) => [...m, { role: "bot", text: reply }]);
-        } catch {
-            setMsgs((m) => [...m, { role: "bot", text: "Lỗi mạng rồi, bạn thử lại nhé." }]);
-        } finally {
-            setLoading(false);
-        }
-    }
-
-    async function startRecording() {
+    function startRecording() {
         if (recording || loading) return;
 
-        try {
-            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-            const mr = new MediaRecorder(stream, { mimeType: "audio/webm" });
+        const SpeechRecognition =
+            window.SpeechRecognition || window.webkitSpeechRecognition;
 
-            chunksRef.current = [];
-            mr.ondataavailable = (e) => chunksRef.current.push(e.data);
-
-            mr.onstop = async () => {
-                const blob = new Blob(chunksRef.current, { type: "audio/webm" });
-                stream.getTracks().forEach((t) => t.stop());
-                await sendVoice(blob);
-            };
-
-            mediaRecorderRef.current = mr;
-            mr.start();
-            setRecording(true);
-        } catch {
+        if (!SpeechRecognition) {
             setMsgs((m) => [
                 ...m,
-                { role: "bot", text: "Không xin được quyền micro 😥 Bạn bật mic rồi thử lại nhé." },
+                {
+                    role: "bot",
+                    text: "Trình duyệt này chưa hỗ trợ nhận diện giọng nói. Bạn thử Chrome nhé.",
+                },
+            ]);
+            return;
+        }
+
+        try {
+            const recognition = new SpeechRecognition();
+            recognitionRef.current = recognition;
+
+            recognition.lang = "vi-VN";
+            recognition.continuous = false;
+            recognition.interimResults = true;
+            recognition.maxAlternatives = 1;
+
+            let finalTranscript = "";
+
+            recognition.onstart = () => {
+                setRecording(true);
+            };
+
+            recognition.onresult = (event: any) => {
+                let transcript = "";
+
+                for (let i = event.resultIndex; i < event.results.length; i++) {
+                    transcript += event.results[i][0].transcript;
+                    if (event.results[i].isFinal) {
+                        finalTranscript += event.results[i][0].transcript;
+                    }
+                }
+
+                setInput(finalTranscript || transcript);
+            };
+
+            recognition.onerror = () => {
+                setRecording(false);
+                setMsgs((m) => [
+                    ...m,
+                    {
+                        role: "bot",
+                        text: "Mic đang gặp lỗi hoặc chưa được cấp quyền. Bạn thử lại nhé.",
+                    },
+                ]);
+            };
+
+            recognition.onend = async () => {
+                setRecording(false);
+
+                const spokenText = finalTranscript.trim() || input.trim();
+                if (spokenText) {
+                    setInput(spokenText);
+
+                    // Tự gửi luôn sau khi nói xong:
+                    await sendText(spokenText);
+
+                    // Nếu bạn muốn chỉ đổ text vào input, KHÔNG tự gửi,
+                    // thì comment dòng trên lại.
+                }
+            };
+
+            recognition.start();
+        } catch {
+            setRecording(false);
+            setMsgs((m) => [
+                ...m,
+                { role: "bot", text: "Không bật được voice input. Bạn thử lại nhé." },
             ]);
         }
     }
 
     function stopRecording() {
         if (!recording) return;
-        mediaRecorderRef.current?.stop();
-        setRecording(false);
+        recognitionRef.current?.stop();
     }
 
     return (
         <>
-            {/* Nút nổi */}
             <button
                 onClick={() => setOpen((v) => !v)}
                 style={{
@@ -198,7 +218,6 @@ export default function ChatWidget() {
                 💬
             </button>
 
-            {/* Khung chat */}
             {open && (
                 <div
                     style={{
@@ -220,10 +239,15 @@ export default function ChatWidget() {
                 >
                     <div style={{ padding: 12, borderBottom: "1px solid rgba(255,255,255,.08)" }}>
                         <div style={{ fontWeight: 700 }}>Canh Ba – Game Assistant</div>
-                        <div style={{ fontSize: 12, opacity: 0.75 }}>Hỏi luật chơi / lá bài / tình huống</div>
+                        <div style={{ fontSize: 12, opacity: 0.75 }}>
+                            Hỏi luật chơi / lá bài / tình huống
+                        </div>
                     </div>
 
-                    <div ref={listRef} style={{ padding: 12, height: "calc(100% - 120px)", overflowY: "auto" }}>
+                    <div
+                        ref={listRef}
+                        style={{ padding: 12, height: "calc(100% - 120px)", overflowY: "auto" }}
+                    >
                         {msgs.map((m, i) => (
                             <div
                                 key={i}
@@ -247,9 +271,10 @@ export default function ChatWidget() {
                                 </div>
                             </div>
                         ))}
+
                         {(loading || recording) && (
                             <div style={{ opacity: 0.8, fontSize: 13 }}>
-                                {recording ? "Đang ghi âm... bấm lại mic để dừng & gửi" : "Đang trả lời..."}
+                                {recording ? "Đang nghe bạn nói..." : "Đang trả lời..."}
                             </div>
                         )}
                     </div>
@@ -263,7 +288,7 @@ export default function ChatWidget() {
                                     if (e.key === "Enter") sendText(input);
                                 }}
                                 placeholder="Nhập câu hỏi…"
-                                disabled={loading || recording}
+                                disabled={loading}
                                 style={{
                                     flex: 1,
                                     padding: "10px 12px",
@@ -273,16 +298,15 @@ export default function ChatWidget() {
                                     background: "transparent",
                                     color: "#fff",
                                     outline: "none",
-                                    opacity: loading || recording ? 0.7 : 1,
+                                    opacity: loading ? 0.7 : 1,
                                 }}
                             />
 
-                            {/* Mic (đẹp) */}
                             <button
                                 onClick={recording ? stopRecording : startRecording}
                                 disabled={loading}
                                 aria-label={recording ? "Stop recording" : "Start recording"}
-                                title={recording ? "Dừng & gửi" : "Ghi âm"}
+                                title={recording ? "Dừng nhận giọng nói" : "Nói để nhập text"}
                                 style={{
                                     width: 44,
                                     height: 44,
@@ -309,7 +333,6 @@ export default function ChatWidget() {
                                 {recording ? <WaveIcon /> : <MicIcon />}
                             </button>
 
-                            {/* Send */}
                             <button
                                 onClick={() => sendText(input)}
                                 disabled={loading || recording}
