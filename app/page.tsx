@@ -1,100 +1,120 @@
 import Link from "next/link";
-
-
-const quickSpecs = [
-  { k: "Số người chơi", v: "4–12" },
-  { k: "Thời lượng", v: "25–45 phút" },
-  { k: "Thể loại", v: "Hidden role • Suy luận" },
-  { k: "Mood", v: "Chợ đêm • Sông nước • Kịch tính" },
-];
+import FeatureGrid from "./components/FeatureGrid";
+import LoreStrip from "./components/LoreStrip";
 
 export default function HomePage() {
   return (
-    <div>
-      <section className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_22%,rgba(255,255,255,0.16),transparent_45%),radial-gradient(circle_at_82%_25%,rgba(255,255,255,0.10),transparent_40%),radial-gradient(circle_at_52%_82%,rgba(255,255,255,0.08),transparent_45%)]" />
+    <>
+      <main className="relative">
+        <section className="mx-auto w-full max-w-7xl px-4 py-10 sm:px-6 sm:py-14 lg:px-8 lg:py-16">
+          <div className="overflow-hidden rounded-[32px] border border-[#d7a33d]/10 bg-[linear-gradient(135deg,rgba(38,10,14,.88),rgba(16,8,10,.78),rgba(12,20,25,.7))] px-4 py-8 sm:px-8 sm:py-12 lg:px-10 lg:py-14">
 
-        <div className="relative mx-auto grid max-w-6xl gap-10 px-2 py-10 md:grid-cols-2 md:items-center md:py-16">
-          <div>
-            <p className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-zinc-300">
-              🛶 Miền Tây Nam Bộ • 🎭 Nhập vai • 🕵️ Suy luận
-              <span className="opacity-70">| Chat hỗ trợ luật</span>
-            </p>
+            {/* Badge */}
+            <div className="inline-flex flex-wrap items-center gap-2 rounded-full border border-[#d7a33d]/15 bg-white/5 px-3 py-1.5 text-[11px] text-[#e8cf9f]/70 sm:text-xs">
+              <span>🚤 Miền Tây Nam Bộ</span>
+              <span>•</span>
+              <span>🎭 Nhập vai</span>
+              <span>•</span>
+              <span>🔍 Suy luận</span>
+              <span>•</span>
+              <span>| Chat hỗ trợ luật</span>
+            </div>
 
-            <h1 className="mt-5 text-4xl font-extrabold leading-tight sm:text-5xl md:text-6xl">
-              CANH BA
-              <span className="block text-zinc-300">
-                Chợ nổi về đêm — nơi người thật và “vai diễn” trà trộn
+            {/* H1 full width */}
+            <h1 className="mt-5 max-w-[15ch] text-2xl font-black uppercase leading-[1.12] tracking-[-0.02em] text-[#f6dfb4] sm:text-[2rem] md:max-w-[18ch] md:text-[2.8rem] xl:max-w-none xl:text-[3.6rem]">
+              <span className="block text-[#ffcf72]">Canh Ba</span>
+              <span className="block">Chợ nổi về đêm</span>
+              <span className="block">nơi người thật</span>
+              <span className="block">
+                và <span className="text-[#ffcf72]">“vai diễn”</span> trà trộn
               </span>
             </h1>
 
-            <p className="mt-5 text-base text-zinc-300 md:text-lg">
-              Một bộ card game “vào ván nhanh” nhưng đủ kịch tính để cả nhóm la
-              hét. Bối cảnh chợ đêm sông nước: tiếng rao, đèn lồng, ghe xuồng —
-              và những bí mật không ai muốn lộ.
-            </p>
+            {/* Content dưới H1 chia 2 cột */}
+            <div className="mt-8 grid gap-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
 
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Link
-                href="/contact"
-                className="rounded-xl bg-white px-5 py-3 font-semibold text-zinc-950 hover:bg-zinc-200"
-              >
-                Nhận thông báo ra mắt
-              </Link>
-              <Link
-                href="/games"
-                className="rounded-xl border border-white/15 bg-white/5 px-5 py-3 font-semibold hover:bg-white/10"
-              >
-                Xem bộ bài
-              </Link>
-              <Link
-                href="/chat"
-                className="rounded-xl border border-white/15 bg-white/5 px-5 py-3 font-semibold hover:bg-white/10"
-              >
-                Hỏi luật nhanh
-              </Link>
-            </div>
+              {/* Left column */}
+              <div>
+                <p className="max-w-2xl text-sm leading-7 text-[#ead7b0]/80 sm:text-base md:text-lg">
+                  Một bộ card game “vào ván nhanh” nhưng đủ kịch tính để cả nhóm la hét.
+                  Bối cảnh chợ đêm sông nước: tiếng rao, đèn lồng, ghe xuồng — và những bí mật
+                  không ai muốn lộ.
+                </p>
 
-            <div className="mt-10 grid grid-cols-2 gap-3">
-              {quickSpecs.map((s) => (
-                <div
-                  key={s.k}
-                  className="rounded-2xl border border-white/10 bg-white/5 p-4"
-                >
-                  <div className="text-xs text-zinc-400">{s.k}</div>
-                  <div className="mt-1 text-sm font-semibold">{s.v}</div>
+                <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+                  <button className="rounded-2xl bg-[#f6f0e6] px-5 py-3 text-sm font-bold text-[#2a0c0f] transition hover:brightness-95 sm:text-base">
+                    Nhận thông báo ra mắt
+                  </button>
+
+                  <Link
+                    href="/product"
+                    className="rounded-2xl border border-[#d7a33d]/15 bg-white/5 px-5 py-3 text-sm font-semibold text-[#f0dbb2] transition hover:bg-white/10 sm:text-base"
+                  >
+                    Xem bộ bài
+                  </Link>
+
+                  <Link
+                    href="/chat"
+                    className="rounded-2xl border border-[#d7a33d]/15 bg-white/5 px-5 py-3 text-sm font-semibold text-[#f0dbb2] transition hover:bg-white/10 sm:text-base"
+                  >
+                    Hỏi luật nhanh
+                  </Link>
                 </div>
-              ))}
-            </div>
-          </div>
 
-          <div className="rounded-3xl border border-white/10 bg-white/5 p-6">
-            <div className="text-lg font-bold">“Kịch tính vừa đủ”</div>
-            <p className="mt-2 text-sm text-zinc-300">
-              Thảo luận • Quan sát • Suy luận • Lật kèo — đúng chất “phiên chợ
-              tan mới biết ai là ai”.
-            </p>
-
-            <div className="mt-5 grid gap-3 sm:grid-cols-2">
-              <div className="rounded-2xl border border-white/10 bg-zinc-950 p-4">
-                <div className="text-sm font-semibold">⚡ Vào ván nhanh</div>
-                <div className="mt-1 text-sm text-zinc-300">
-                  Dẫn luật gọn cho người mới.
+                <div className="mt-8 grid gap-3 sm:grid-cols-2 xl:max-w-[560px]">
+                  {[
+                    ["Số người chơi", "4–12"],
+                    ["Thời lượng", "25–45 phút"],
+                    ["Thể loại", "Hidden role • Suy luận"],
+                    ["Mood", "Chợ đêm • Sông nước • Kịch tính"],
+                  ].map(([label, value]) => (
+                    <div
+                      key={label}
+                      className="rounded-[22px] border border-[#d7a33d]/10 bg-white/5 p-4"
+                    >
+                      <div className="text-xs text-[#c9a15a]/70">{label}</div>
+                      <div className="mt-2 text-lg font-bold text-[#f6dfb4]">{value}</div>
+                    </div>
+                  ))}
                 </div>
               </div>
-              <div className="rounded-2xl border border-white/10 bg-zinc-950 p-4">
-                <div className="text-sm font-semibold">🧠 Căng não vừa đủ</div>
-                <div className="mt-1 text-sm text-zinc-300">
-                  Đọc hành vi + timing.
+
+              {/* Right column */}
+              <div className="lg:pl-2">
+                <div className="rounded-[30px] border border-[#d7a33d]/10 bg-white/[0.04] p-5 shadow-[0_20px_60px_rgba(0,0,0,.35)] backdrop-blur-sm sm:p-6">
+                  <div className="text-2xl font-black text-[#f6dfb4] sm:text-3xl">
+                    “Kịch tính vừa đủ”
+                  </div>
+
+                  <p className="mt-3 text-sm leading-7 text-[#ead7b0]/75 sm:text-base">
+                    Thảo luận • Quan sát • Suy luận • Lật kèo — đúng chất “phiên chợ tan
+                    mới biết ai là ai”.
+                  </p>
+
+                  <div className="mt-6 grid gap-3 sm:grid-cols-2">
+                    <div className="rounded-2xl bg-black/70 p-4">
+                      <div className="text-lg font-bold text-[#ffcf72]">⚡ Vào ván nhanh</div>
+                      <p className="mt-2 text-sm text-[#e8d1aa]/78">
+                        Dẫn luật gọn cho người mới.
+                      </p>
+                    </div>
+
+                    <div className="rounded-2xl bg-black/70 p-4">
+                      <div className="text-lg font-bold text-[#ff77d9]">🧠 Căng não vừa đủ</div>
+                      <p className="mt-2 text-sm text-[#e8d1aa]/78">
+                        Đọc hành vi + timing.
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-
-
-    </div>
+        <FeatureGrid />
+        <LoreStrip />
+      </main>
+    </>
   );
 }

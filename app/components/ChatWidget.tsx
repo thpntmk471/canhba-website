@@ -13,7 +13,7 @@ declare global {
 
 function MicIcon() {
     return (
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path
                 d="M12 14a3 3 0 0 0 3-3V7a3 3 0 1 0-6 0v4a3 3 0 0 0 3 3Z"
                 stroke="currentColor"
@@ -42,13 +42,35 @@ function MicIcon() {
     );
 }
 
-function WaveIcon() {
+function SendIcon() {
     return (
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-            <path d="M7 9v6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-            <path d="M11 6v12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-            <path d="M15 8v8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-            <path d="M19 10v4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path
+                d="M21 3 10 14"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+            />
+            <path
+                d="m21 3-7 18-4-7-7-4 18-7Z"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinejoin="round"
+            />
+        </svg>
+    );
+}
+
+function ChatBubbleIcon() {
+    return (
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path
+                d="M8 10h8M8 14h5m7-2c0 4.418-3.582 8-8 8a8.96 8.96 0 0 1-3.874-.874L3 20l.874-5.126A8.96 8.96 0 0 1 3 11c0-4.418 3.582-8 8-8s8 3.582 8 8Z"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
         </svg>
     );
 }
@@ -60,7 +82,10 @@ export default function ChatWidget() {
     const [recording, setRecording] = useState(false);
 
     const [msgs, setMsgs] = useState<Msg[]>([
-        { role: "bot", text: "Chào bạn! Bạn hỏi mình về card game nhé." },
+        {
+            role: "bot",
+            text: "Chào bạn! Mình là trợ lý luật của Canh Ba. Bạn có thể hỏi về vai trò, tình huống hoặc cách xử lý khi chơi.",
+        },
     ]);
 
     const listRef = useRef<HTMLDivElement>(null);
@@ -78,15 +103,14 @@ export default function ChatWidget() {
 
     useEffect(() => {
         if (!open) return;
-        listRef.current?.scrollTo({
-            top: listRef.current.scrollHeight,
-            behavior: "smooth",
-        });
-    }, [msgs, open]);
+        const el = listRef.current;
+        if (!el) return;
+        el.scrollTo({ top: el.scrollHeight, behavior: "smooth" });
+    }, [msgs, open, loading]);
 
     async function sendText(text: string) {
         const t = text.trim();
-        if (!t || loading || recording) return;
+        if (!t || loading) return;
 
         setMsgs((m) => [...m, { role: "user", text: t }]);
         setInput("");
@@ -103,7 +127,10 @@ export default function ChatWidget() {
             const reply = String(data?.reply ?? "Mình chưa nhận được phản hồi.");
             setMsgs((m) => [...m, { role: "bot", text: reply }]);
         } catch {
-            setMsgs((m) => [...m, { role: "bot", text: "Lỗi mạng rồi, bạn thử lại nhé." }]);
+            setMsgs((m) => [
+                ...m,
+                { role: "bot", text: "Mạng đang hơi chập chờn, bạn thử lại giúp mình nhé." },
+            ]);
         } finally {
             setLoading(false);
         }
@@ -120,7 +147,7 @@ export default function ChatWidget() {
                 ...m,
                 {
                     role: "bot",
-                    text: "Trình duyệt này chưa hỗ trợ nhận diện giọng nói. Bạn thử Chrome nhé.",
+                    text: "Trình duyệt này chưa hỗ trợ nhận diện giọng nói. Bạn nên dùng Chrome hoặc Edge nhé.",
                 },
             ]);
             return;
@@ -142,214 +169,179 @@ export default function ChatWidget() {
             };
 
             recognition.onresult = (event: any) => {
-                let transcript = "";
+                let liveTranscript = "";
 
                 for (let i = event.resultIndex; i < event.results.length; i++) {
-                    transcript += event.results[i][0].transcript;
+                    liveTranscript += event.results[i][0].transcript;
                     if (event.results[i].isFinal) {
                         finalTranscript += event.results[i][0].transcript;
                     }
                 }
 
-                setInput(finalTranscript || transcript);
+                setInput((finalTranscript || liveTranscript).trim());
             };
 
             recognition.onerror = () => {
                 setRecording(false);
-                setMsgs((m) => [
-                    ...m,
-                    {
-                        role: "bot",
-                        text: "Mic đang gặp lỗi hoặc chưa được cấp quyền. Bạn thử lại nhé.",
-                    },
-                ]);
             };
 
-            recognition.onend = async () => {
+            recognition.onend = () => {
                 setRecording(false);
-
-                const spokenText = finalTranscript.trim() || input.trim();
-                if (spokenText) {
-                    setInput(spokenText);
-
-                    // Tự gửi luôn sau khi nói xong:
-                    await sendText(spokenText);
-
-                    // Nếu bạn muốn chỉ đổ text vào input, KHÔNG tự gửi,
-                    // thì comment dòng trên lại.
-                }
             };
 
             recognition.start();
         } catch {
             setRecording(false);
-            setMsgs((m) => [
-                ...m,
-                { role: "bot", text: "Không bật được voice input. Bạn thử lại nhé." },
-            ]);
         }
     }
 
     function stopRecording() {
-        if (!recording) return;
         recognitionRef.current?.stop();
     }
 
     return (
         <>
-            <button
-                onClick={() => setOpen((v) => !v)}
-                style={{
-                    position: "fixed",
-                    right: 16,
-                    bottom: 16,
-                    width: 56,
-                    height: 56,
-                    borderRadius: 999,
-                    border: "none",
-                    background: "#111",
-                    color: "#fff",
-                    cursor: "pointer",
-                    boxShadow: "0 10px 30px rgba(0,0,0,.25)",
-                    zIndex: 9999,
-                }}
-                aria-label="Open chat"
-            >
-                💬
-            </button>
+            {!open && (
+                <button
+                    onClick={() => setOpen(true)}
+                    aria-label="Mở chat Canh Ba"
+                    className="fixed bottom-4 right-4 z-[70] grid h-16 w-16 place-items-center rounded-full border border-[#ffcf72]/35 bg-[linear-gradient(180deg,#ffcf72,#d89a22)] text-[#2a0c0f] shadow-[0_18px_45px_rgba(0,0,0,.45)] transition hover:scale-[1.03] hover:brightness-105 sm:bottom-5 sm:right-5"
+                >
+                    <ChatBubbleIcon />
+                </button>
+            )}
 
             {open && (
                 <div
-                    style={{
-                        position: "fixed",
-                        right: 16,
-                        bottom: 80,
-                        width: 360,
-                        maxWidth: "calc(100vw - 32px)",
-                        height: 520,
-                        maxHeight: "calc(100vh - 120px)",
-                        borderRadius: 16,
-                        background: "#0b0b0b",
-                        color: "#fff",
-                        boxShadow: "0 10px 40px rgba(0,0,0,.35)",
-                        overflow: "hidden",
-                        zIndex: 9999,
-                        border: "1px solid rgba(255,255,255,.08)",
-                    }}
+                    className="
+            fixed z-[80]
+            left-3 right-3 bottom-3 top-auto
+            sm:left-auto sm:right-5 sm:bottom-5
+            w-auto sm:w-[400px]
+            h-[min(78svh,720px)] sm:h-[min(76svh,720px)]
+            rounded-[28px] border border-[#d7a33d]/10
+            bg-[linear-gradient(180deg,rgba(16,7,8,.98),rgba(5,5,7,.98))]
+            text-[#f4ddb3]
+            shadow-[0_24px_80px_rgba(0,0,0,.55)]
+            backdrop-blur-xl
+            overflow-hidden
+          "
                 >
-                    <div style={{ padding: 12, borderBottom: "1px solid rgba(255,255,255,.08)" }}>
-                        <div style={{ fontWeight: 700 }}>Canh Ba – Game Assistant</div>
-                        <div style={{ fontSize: 12, opacity: 0.75 }}>
-                            Hỏi luật chơi / lá bài / tình huống
-                        </div>
-                    </div>
+                    <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,138,0,.08),transparent_30%),radial-gradient(circle_at_bottom,rgba(120,8,18,.18),transparent_38%)]" />
 
-                    <div
-                        ref={listRef}
-                        style={{ padding: 12, height: "calc(100% - 120px)", overflowY: "auto" }}
-                    >
-                        {msgs.map((m, i) => (
-                            <div
-                                key={i}
-                                style={{
-                                    marginBottom: 10,
-                                    display: "flex",
-                                    justifyContent: m.role === "user" ? "flex-end" : "flex-start",
-                                }}
-                            >
-                                <div
-                                    style={{
-                                        maxWidth: "85%",
-                                        padding: "10px 12px",
-                                        borderRadius: 14,
-                                        background: m.role === "user" ? "#2563eb" : "rgba(255,255,255,.08)",
-                                        whiteSpace: "pre-wrap",
-                                        lineHeight: 1.35,
-                                    }}
-                                >
-                                    {m.text}
+                    <div className="relative flex h-full flex-col">
+                        {/* Header */}
+                        <div className="border-b border-[#d7a33d]/10 bg-[linear-gradient(180deg,rgba(32,10,13,.88),rgba(14,7,8,.8))] px-4 py-4 sm:px-5">
+                            <div className="flex items-start justify-between gap-3">
+                                <div className="min-w-0">
+                                    <div className="flex items-center gap-2">
+                                        <span className="inline-block h-2.5 w-2.5 rounded-full bg-[#ffbf47] shadow-[0_0_16px_rgba(255,191,71,.65)]" />
+                                        <p className="text-[11px] uppercase tracking-[0.22em] text-[#cfa050]/85">
+                                            Canh Ba AI
+                                        </p>
+                                    </div>
+
+                                    <h3 className="mt-2 text-lg font-black text-[#ffe5b9] sm:text-xl">
+                                        Trợ lý luật chơi
+                                    </h3>
+
+                                    <p className="mt-1 text-sm text-[#e6d0ab]/68">
+                                        Hỏi nhanh về lá bài, vai trò, tình huống và cách xử lý.
+                                    </p>
                                 </div>
+
+                                <button
+                                    onClick={() => setOpen(false)}
+                                    aria-label="Đóng chat"
+                                    className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-[#d7a33d]/10 bg-white/5 text-[#e7d0a7]/80 transition hover:bg-white/10"
+                                >
+                                    ✕
+                                </button>
                             </div>
-                        ))}
+                        </div>
 
-                        {(loading || recording) && (
-                            <div style={{ opacity: 0.8, fontSize: 13 }}>
-                                {recording ? "Đang nghe bạn nói..." : "Đang trả lời..."}
+                        {/* Messages */}
+                        <div
+                            ref={listRef}
+                            className="relative flex-1 overflow-y-auto px-4 py-4 sm:px-5"
+                        >
+                            <div className="space-y-3">
+                                {msgs.map((m, i) => (
+                                    <div
+                                        key={i}
+                                        className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}
+                                    >
+                                        <div
+                                            className={[
+                                                "max-w-[85%] rounded-[22px] px-4 py-3 text-[15px] leading-7 shadow-sm",
+                                                m.role === "user"
+                                                    ? "rounded-br-md border border-[#d7a33d]/10 bg-[linear-gradient(180deg,rgba(255,191,71,.96),rgba(221,151,33,.95))] text-[#2a0c0f]"
+                                                    : "rounded-bl-md border border-[#d7a33d]/8 bg-white/[0.06] text-[#f3dfbb]",
+                                            ].join(" ")}
+                                        >
+                                            {m.text}
+                                        </div>
+                                    </div>
+                                ))}
+
+                                {(loading || recording) && (
+                                    <div className="flex justify-start">
+                                        <div className="rounded-[22px] rounded-bl-md border border-[#d7a33d]/8 bg-white/[0.05] px-4 py-3 text-sm text-[#d7c4a1]/78">
+                                            {recording ? "Đang nghe bạn nói..." : "Đang trả lời..."}
+                                        </div>
+                                    </div>
+                                )}
                             </div>
-                        )}
-                    </div>
+                        </div>
 
-                    <div style={{ padding: 12, borderTop: "1px solid rgba(255,255,255,.08)" }}>
-                        <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
-                            <input
-                                value={input}
-                                onChange={(e) => setInput(e.target.value)}
-                                onKeyDown={(e) => {
-                                    if (e.key === "Enter") sendText(input);
-                                }}
-                                placeholder="Nhập câu hỏi…"
-                                disabled={loading}
-                                style={{
-                                    flex: 1,
-                                    padding: "10px 12px",
-                                    height: 44,
-                                    borderRadius: 14,
-                                    border: "1px solid rgba(255,255,255,.15)",
-                                    background: "transparent",
-                                    color: "#fff",
-                                    outline: "none",
-                                    opacity: loading ? 0.7 : 1,
-                                }}
-                            />
+                        {/* Composer */}
+                        <div className="relative border-t border-[#d7a33d]/10 bg-[linear-gradient(180deg,rgba(14,8,10,.92),rgba(9,5,7,.98))] px-4 pb-[max(14px,env(safe-area-inset-bottom))] pt-4 sm:px-5">
+                            <div className="flex items-end gap-3">
+                                <div className="min-w-0 flex-1">
+                                    <div className="rounded-[22px] border border-[#d7a33d]/10 bg-black/20 px-4 py-3 transition focus-within:border-[#d7a33d]/25">
+                                        <input
+                                            value={input}
+                                            onChange={(e) => setInput(e.target.value)}
+                                            onKeyDown={(e) => {
+                                                if (e.key === "Enter" && !e.shiftKey) {
+                                                    e.preventDefault();
+                                                    sendText(input);
+                                                }
+                                            }}
+                                            placeholder="Nhập câu hỏi về Canh Ba..."
+                                            disabled={loading}
+                                            className="w-full bg-transparent text-[15px] text-[#f2ddb5] outline-none placeholder:text-[#a79678]"
+                                        />
+                                    </div>
+                                </div>
 
-                            <button
-                                onClick={recording ? stopRecording : startRecording}
-                                disabled={loading}
-                                aria-label={recording ? "Stop recording" : "Start recording"}
-                                title={recording ? "Dừng nhận giọng nói" : "Nói để nhập text"}
-                                style={{
-                                    width: 44,
-                                    height: 44,
-                                    borderRadius: 999,
-                                    border: "1px solid rgba(255,255,255,.12)",
-                                    background: recording ? "#22c55e" : "rgba(255,255,255,.08)",
-                                    color: recording ? "#052e16" : "rgba(255,255,255,.9)",
-                                    display: "grid",
-                                    placeItems: "center",
-                                    cursor: loading ? "not-allowed" : "pointer",
-                                    opacity: loading ? 0.7 : 1,
-                                    transition: "transform .08s ease, background .2s ease",
-                                }}
-                                onMouseDown={(e) => {
-                                    (e.currentTarget as HTMLButtonElement).style.transform = "scale(0.98)";
-                                }}
-                                onMouseUp={(e) => {
-                                    (e.currentTarget as HTMLButtonElement).style.transform = "scale(1)";
-                                }}
-                                onMouseLeave={(e) => {
-                                    (e.currentTarget as HTMLButtonElement).style.transform = "scale(1)";
-                                }}
-                            >
-                                {recording ? <WaveIcon /> : <MicIcon />}
-                            </button>
+                                <button
+                                    onClick={recording ? stopRecording : startRecording}
+                                    disabled={loading}
+                                    aria-label={recording ? "Dừng ghi âm" : "Bật nhập giọng nói"}
+                                    className={[
+                                        "grid h-14 w-14 shrink-0 place-items-center rounded-full border transition",
+                                        recording
+                                            ? "border-[#ffbf47]/35 bg-[#ffbf47] text-[#2a0c0f]"
+                                            : "border-[#d7a33d]/10 bg-white/5 text-[#f1d8ab]",
+                                        loading ? "opacity-60" : "hover:bg-white/10",
+                                    ].join(" ")}
+                                >
+                                    <MicIcon />
+                                </button>
 
-                            <button
-                                onClick={() => sendText(input)}
-                                disabled={loading || recording}
-                                style={{
-                                    height: 44,
-                                    padding: "0 16px",
-                                    borderRadius: 14,
-                                    border: "1px solid rgba(255,255,255,.10)",
-                                    background: "#fff",
-                                    color: "#000",
-                                    fontWeight: 700,
-                                    cursor: loading || recording ? "not-allowed" : "pointer",
-                                    opacity: loading || recording ? 0.7 : 1,
-                                }}
-                            >
-                                Gửi
-                            </button>
+                                <button
+                                    onClick={() => sendText(input)}
+                                    disabled={loading || !input.trim()}
+                                    aria-label="Gửi câu hỏi"
+                                    className="grid h-14 min-w-[76px] shrink-0 place-items-center rounded-[18px] border border-[#ffbf47]/30 bg-[#f6f0e6] px-5 font-bold text-[#2a0c0f] transition hover:brightness-95 disabled:cursor-not-allowed disabled:opacity-60"
+                                >
+                                    <span className="hidden sm:inline">Gửi</span>
+                                    <span className="sm:hidden">
+                                        <SendIcon />
+                                    </span>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
