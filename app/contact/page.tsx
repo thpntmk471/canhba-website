@@ -40,7 +40,7 @@ export default function ContactPage() {
                   Địa chỉ
                 </div>
                 <div className="mt-1">
-                  600 Nguyễn Văn Cừ Nối Dài, An Bình, Bình Thủy, Cần Thơ 900000
+                  Số 600, đường Nguyễn Văn Cừ (nối dài), Phường An Bình, Thành phố Cần Thơ
                 </div>
               </div>
 
