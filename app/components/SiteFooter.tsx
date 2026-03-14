@@ -14,7 +14,7 @@ export default function SiteFooter() {
                     </p>
 
                     <div className="mt-5 flex flex-wrap gap-2">
-                        {["4–12 người", "25–45 phút", "Hidden role", "Suy luận"].map((tag) => (
+                        {["5–29 người", "25–45 phút", "Hidden role", "Suy luận"].map((tag) => (
                             <span
                                 key={tag}
                                 className="rounded-full border border-[#d7a33d]/10 bg-white/5 px-3 py-1 text-xs text-[#efdbb1]/85"

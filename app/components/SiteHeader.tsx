@@ -1,10 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
+import OpenChatButton from "./OpenChatButton";
 
 const navItems = [
     { href: "/", label: "Trang chủ" },
     { href: "/product", label: "Sản phẩm" },
-    { href: "/chat", label: "Hỏi luật" },
     { href: "/contact", label: "Liên hệ" },
 ];
 
@@ -13,24 +13,26 @@ export default function SiteHeader() {
         <header className="sticky top-0 z-50 border-b border-[#d7a33d]/10 bg-[#160809]/80 backdrop-blur-xl">
             <div className="mx-auto flex w-full max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8">
                 <Link href="/" className="group flex min-w-0 items-center gap-3">
-                    <div className="relative h-11 w-11 shrink-0 overflow-hidden rounded-2xl border border-[#d7a33d]/15 bg-[#2a0c0f]">
+                    <div className="relative h-11 w-11 shrink-0 overflow-hidden sm:h-12 sm:w-12">
                         <Image
-                            src="/images/canhba-logo.jpg"
+                            src="/images/icon.png"
                             alt="Logo Canh Ba"
                             fill
                             className="object-cover"
-                            sizes="44px"
+                            sizes="48px"
                             priority
                         />
                     </div>
 
-                    <div className="min-w-0">
-                        <div className="truncate text-sm font-black uppercase tracking-[0.2em] text-[#ffbf47] sm:text-base">
-                            Canh Ba
-                        </div>
-                        <div className="truncate text-[11px] uppercase tracking-[0.18em] text-[#e5c792]/65 sm:text-xs">
-                            ...trong chợ có ma!
-                        </div>
+                    <div className="relative h-10 w-[170px] shrink-0 sm:h-12 sm:w-[230px] md:w-[260px]">
+                        <Image
+                            src="/images/canhba-header.png"
+                            alt="Canh Ba header"
+                            fill
+                            className="object-contain object-left"
+                            sizes="(max-width: 640px) 170px, (max-width: 768px) 230px, 260px"
+                            priority
+                        />
                     </div>
                 </Link>
 
@@ -53,16 +55,12 @@ export default function SiteHeader() {
                     >
                         Xem bộ bài
                     </Link>
-                    <Link
-                        href="/chat"
-                        className="rounded-xl border border-[#ffbf47]/35 bg-[#ffbf47] px-4 py-2 text-sm font-bold text-[#2a0c0f] transition hover:brightness-95"
-                    >
+                    <OpenChatButton className="rounded-xl border border-[#ffbf47]/35 bg-[#ffbf47] px-4 py-2 text-sm font-bold text-[#2a0c0f] transition hover:brightness-95">
                         Hỏi luật ngay
-                    </Link>
+                    </OpenChatButton>
                 </div>
             </div>
 
-            {/* mobile nav */}
             <div className="border-t border-[#d7a33d]/10 md:hidden">
                 <div className="mx-auto flex w-full max-w-7xl gap-2 overflow-x-auto px-4 py-2 sm:px-6">
                     {navItems.map((item) => (

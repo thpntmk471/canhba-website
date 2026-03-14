@@ -107,6 +107,17 @@ export default function ChatWidget() {
         if (!el) return;
         el.scrollTo({ top: el.scrollHeight, behavior: "smooth" });
     }, [msgs, open, loading]);
+    useEffect(() => {
+        const handleOpenChat = () => {
+            setOpen(true);
+        };
+
+        window.addEventListener("open-canhba-chat", handleOpenChat);
+
+        return () => {
+            window.removeEventListener("open-canhba-chat", handleOpenChat);
+        };
+    }, []);
 
     async function sendText(text: string) {
         const t = text.trim();

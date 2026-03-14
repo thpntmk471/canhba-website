@@ -16,8 +16,13 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "CANH BA | Board Game • AR • AI",
-  description: "Board game Canh Ba - chợ đêm, suy luận, hidden role và hỏi luật bằng AI.",
+  title: "CANHBA | Board Game • AR • AI",
+  description: "Website quảng cáo board game, tích hợp AR và Chat AI hỏi luật.",
+  icons: {
+    icon: "/icon.png",
+    shortcut: "/icon.png",
+    apple: "/icon.png",
+  },
 };
 
 export default function RootLayout({

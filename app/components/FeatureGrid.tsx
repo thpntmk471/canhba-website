@@ -33,17 +33,23 @@ export default function FeatureGrid() {
                 </p>
             </div>
 
-            <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+            <div className="grid items-stretch gap-4 sm:grid-cols-2 xl:grid-cols-4">
                 {features.map((item, index) => (
                     <div
                         key={item.title}
-                        className="rounded-[24px] border border-[#d7a33d]/10 bg-[linear-gradient(180deg,rgba(39,10,14,.9),rgba(18,6,8,.95))] p-5"
+                        className="h-full rounded-[24px] border border-[#d7a33d]/10 bg-[linear-gradient(180deg,rgba(39,10,14,.9),rgba(18,6,8,.95))] p-5"
                     >
                         <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-xl border border-[#ffbf47]/20 bg-white/5 text-sm font-bold text-[#ffcf72]">
                             0{index + 1}
                         </div>
-                        <h3 className="text-lg font-bold text-[#ffe3b2]">{item.title}</h3>
-                        <p className="mt-3 text-sm leading-7 text-[#ebd5ac]/76">{item.desc}</p>
+
+                        <h3 className="min-h-[56px] text-lg font-bold leading-tight text-[#ffe3b2] sm:min-h-[64px] sm:text-xl">
+                            {item.title}
+                        </h3>
+
+                        <p className="mt-3 min-h-[120px] text-sm leading-7 text-[#ebd5ac]/76 sm:min-h-[140px] sm:text-base sm:leading-8">
+                            {item.desc}
+                        </p>
                     </div>
                 ))}
             </div>

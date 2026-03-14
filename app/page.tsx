@@ -1,6 +1,7 @@
 import Link from "next/link";
 import FeatureGrid from "./components/FeatureGrid";
 import LoreStrip from "./components/LoreStrip";
+import OpenChatButton from "./components/OpenChatButton";
 
 export default function HomePage() {
   return (
@@ -42,9 +43,7 @@ export default function HomePage() {
                 </p>
 
                 <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-                  <button className="rounded-2xl bg-[#f6f0e6] px-5 py-3 text-sm font-bold text-[#2a0c0f] transition hover:brightness-95 sm:text-base">
-                    Nhận thông báo ra mắt
-                  </button>
+
 
                   <Link
                     href="/product"
@@ -53,27 +52,26 @@ export default function HomePage() {
                     Xem bộ bài
                   </Link>
 
-                  <Link
-                    href="/chat"
-                    className="rounded-2xl border border-[#d7a33d]/15 bg-white/5 px-5 py-3 text-sm font-semibold text-[#f0dbb2] transition hover:bg-white/10 sm:text-base"
-                  >
+                  <OpenChatButton className="rounded-2xl border border-[#d7a33d]/15 bg-white/5 px-5 py-3 text-sm font-semibold text-[#f0dbb2] transition hover:bg-white/10 sm:text-base">
                     Hỏi luật nhanh
-                  </Link>
+                  </OpenChatButton>
                 </div>
 
-                <div className="mt-8 grid gap-3 sm:grid-cols-2 xl:max-w-[560px]">
+                <div className="mt-8 grid gap-3 xl:grid-cols-2">
                   {[
-                    ["Số người chơi", "4–12"],
+                    ["Số người chơi", "5–29"],
                     ["Thời lượng", "25–45 phút"],
                     ["Thể loại", "Hidden role • Suy luận"],
                     ["Mood", "Chợ đêm • Sông nước • Kịch tính"],
                   ].map(([label, value]) => (
                     <div
                       key={label}
-                      className="rounded-[22px] border border-[#d7a33d]/10 bg-white/5 p-4"
+                      className="h-full min-h-[118px] rounded-[22px] border border-[#d7a33d]/10 bg-white/5 p-4"
                     >
                       <div className="text-xs text-[#c9a15a]/70">{label}</div>
-                      <div className="mt-2 text-lg font-bold text-[#f6dfb4]">{value}</div>
+                      <div className="mt-2 text-[15px] font-bold leading-7 text-[#f6dfb4] lg:text-base lg:leading-8">
+                        {value}
+                      </div>
                     </div>
                   ))}
                 </div>
