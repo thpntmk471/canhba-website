@@ -284,7 +284,7 @@ export default function ChatWidget() {
                                     >
                                         <div
                                             className={[
-                                                "max-w-[85%] rounded-[22px] px-4 py-3 text-[15px] leading-7 shadow-sm",
+                                                "max-w-[85%] rounded-[22px] px-4 py-3 text-[15px] leading-7 shadow-sm whitespace-pre-wrap break-words",
                                                 m.role === "user"
                                                     ? "rounded-br-md border border-[#d7a33d]/10 bg-[linear-gradient(180deg,rgba(255,191,71,.96),rgba(221,151,33,.95))] text-[#2a0c0f]"
                                                     : "rounded-bl-md border border-[#d7a33d]/8 bg-white/[0.06] text-[#f3dfbb]",

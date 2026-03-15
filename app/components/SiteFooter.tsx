@@ -36,9 +36,6 @@ export default function SiteFooter() {
                         <Link href="/product" className="block hover:text-[#ffcf72]">
                             Sản phẩm
                         </Link>
-                        <Link href="/chat" className="block hover:text-[#ffcf72]">
-                            Hỏi luật
-                        </Link>
                         <Link href="/contact" className="block hover:text-[#ffcf72]">
                             Liên hệ
                         </Link>
