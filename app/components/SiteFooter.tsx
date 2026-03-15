@@ -8,7 +8,7 @@ export default function SiteFooter() {
                     <div className="text-xl font-black uppercase tracking-[0.2em] text-[#ffbf47]">
                         Canh Ba
                     </div>
-                    <p className="mt-3 max-w-md text-sm leading-7 text-[#e7d1a8]/72">
+                    <p className="mt-3 max-w-[30ch] text-sm leading-8 text-[#e7d1a8]/72 sm:max-w-[34ch]">
                         Board game suy luận mang màu sắc dân gian – huyền bí, lấy cảm hứng từ
                         chợ đêm Nam Bộ, nơi người thật và “vai diễn” trộn lẫn trong ánh đèn dầu.
                     </p>
