@@ -351,7 +351,7 @@ Trong game, Thúng giúp một người được nói thêm trong thời gian ng
         name: "Ma Đói",
         group: "ma",
         groupLabel: "Ma",
-        image: "/images/cards/ma-doi.jpg",
+        image: "/images/cards/ma-doi-1.jpg",
         functionText: "Thắng khi còn 3 người sống và có bạn.",
         story: "Những linh hồn bị bỏ đói\nỞ Định Yên, người ta nói có những đêm chợ đã dọn hết rồi mà mùi cơm nguội vẫn còn bay quanh mấy sạp hàng vắng. Không phải mùi cơm mới nấu, cũng không phải mùi đồ cúng còn sót lại, mà là một thứ mùi chua lạnh, ngai ngái như bát cơm để lâu ngoài sương, trộn với khói nhang tàn và hơi đất ẩm.\nHễ mùi đó nổi lên lúc Canh Ba, người già trong làng liền biết: Ma Đói đang về.\nMa Đói, có nơi còn gọi là Ngạ Quỷ, Dạ Quỷ, là những linh hồn chết trong đói khát, bệnh tật, hoặc chết rồi mà không ai thờ cúng, không có một bát cơm, một nén nhang để nương nhờ. Chúng không được nhận vào nhà ai, cũng không có chỗ tựa trong cõi âm, cứ lang thang từ bờ sông, bãi đất hoang, tới những góc chợ còn vương mùi thức ăn thừa.\nNgười ta kể hình dạng Ma Đói rất thảm. Thân nó gầy nhom, da bọc xương, tóc rối phủ xuống cái mặt hốc hác. Hai mắt lồi ra, tối đen như đã nhìn quá lâu vào một cái nồi trống. Cái bụng thì phình lớn, nhưng cổ họng lại nhỏ xíu như cây kim, nên dầu có đói tới cháy ruột, nó cũng không nuốt được gì cho no.\nBởi vậy nó cứ đói hoài.\nĐói từ lúc chết.\nĐói qua từng mùa nước nổi.\nĐói tới mức nghe tiếng ai bẻ miếng bánh tráng ngoài chợ, nó cũng quay đầu lại.\nBan ngày, chợ Định Yên đông người, Ma Đói thường núp trong những chỗ khuất: sau sạp cá, dưới gầm bàn bán chè, bên cạnh thùng gạo cũ, hoặc chỗ người ta đổ cơm thừa cho chó. Nhưng hễ đêm xuống, đèn dầu ngoài chợ thưa dần, tiếng rao tắt mất, sương từ mé sông bò lên, nó mới lò dò đi ra.\nNó không đi nhanh.\nNó đi như người kiệt sức.\nTừng bước kéo lê trên nền đất ẩm, để lại phía sau mùi bùn, mùi tro lạnh và mùi đói khát lâu ngày. Có người bán hàng ngủ quên trong chợ từng kể, nửa đêm nghe tiếng ai húp cháo sau lưng. Quay lại thì nồi cháo vẫn còn nguyên, nhưng trên mặt cháo có một vệt lõm sâu như vừa có cái miệng vô hình cúi xuống liếm qua.\nMa Đói không chỉ ăn đồ ăn.\nNó ăn luôn hơi ấm của người sống.\nAi bị Ma Đói theo, ban đầu chỉ thấy thèm ăn bất thường. Vừa ăn xong đã đói, bụng cồn cào, cổ họng khô rát. Đến khuya thì tỉnh dậy đi tìm cơm nguội, bánh trái, đồ cúng, thậm chí bốc cả gạo sống bỏ vào miệng. Nhưng càng ăn, người đó càng xanh xao, mắt trũng xuống, tay chân lạnh ngắt, như có thứ gì bên trong đang ăn thay mình.\nBà con nói, Ma Đói khổ là vậy. Thấy cơm thì mừng, thấy đồ cúng thì mừng, nhưng đưa tới miệng lại hóa thành tro, thành lửa, thành khói đen nghẹn trong cổ. Cái đói của nó không phải cái đói một bữa, mà là cái đói của linh hồn bị bỏ quên quá lâu, không ai gọi tên, không ai cúng kiếng, không ai nhớ nó từng là người.\nỞ Định Yên, Ma Đói thường xuất hiện rõ nhất vào những đêm chợ có cúng cô hồn, hoặc khi nhà nào làm đám mà bày mâm ngoài sân rồi quên khấn mời đàng hoàng. Khi đó, người ta sẽ thấy chén cơm trên mâm tự dưng vơi đi một góc, cây nhang cháy cong xuống, trái chuối trên đĩa héo đen chỉ sau một đêm. Có khi, giữa lúc mọi người đang ăn uống, dưới gầm bàn lại vang lên tiếng nuốt khan.\nỰc.\nMột tiếng nhỏ thôi.\nNhưng nghe xong ai cũng thấy lạnh sống lưng.\nĐến Canh Ba, khi phiên chợ của người chết mở ra, Ma Đói lẫn vào đám bóng người đi chợ. Nó đứng trước sạp bánh, nhìn nồi chè, nhìn mâm xôi, nhìn con cá nướng còn bốc khói mà nước dãi chảy xuống cằm. Người sống nếu không để ý sẽ tưởng đó là một kẻ ăn xin gầy gò. Nhưng nếu nhìn kỹ, sẽ thấy chân nó không chạm đất, còn cái bóng dưới đèn dầu thì dài ngoằng, méo mó như một cái bụng rỗng đang há miệng.\nMa Đói không gọi người bằng tiếng khóc như Ma Da.\nNó gọi bằng cơn đói.\nNó khiến người ta thèm một món gì đó đến mất tỉnh táo. Thèm bát cháo nóng giữa đêm. Thèm miếng bánh còn cúng trên bàn. Thèm chén cơm nguội để trong bếp. Rồi khi người đó đưa tay bốc ăn, Ma Đói sẽ đứng sát sau lưng, há cái miệng khô khốc ra mà hít lấy hơi người sống.\nNgười Định Yên dặn nhau, đêm khuya đừng ăn đồ cúng bỏ ngoài sân, đừng nhặt bánh trái rơi ở chợ Canh Ba, cũng đừng cười cợt mấy mâm cô hồn đặt bên đường. Thấy một người gầy nhom đứng nhìn đồ ăn mà không chớp mắt thì phải tránh đi, đừng thương hại quá, cũng đừng mời về nhà ăn cơm.\nVì có những cái đói không thể cho no.\nCó những linh hồn càng được nhớ tới, càng bám chặt lấy người sống.\nVà trong phiên chợ Định Yên, nếu nghe sau lưng có tiếng nuốt khan giữa màn sương lạnh, thì đừng quay đầu lại.\nBiết đâu thứ đang đứng sau mình không xin một miếng ăn.\nMà đang chờ mình trở thành bữa cuối cùng của nó."
     },
@@ -388,27 +388,95 @@ function getGroupCount(group: CardGroup) {
     if (group === "all") return cards.length;
     return cards.filter((card) => card.group === group).length;
 }
+function normalizeText(value: string) {
+    return value
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/đ/g, "d")
+        .replace(/Đ/g, "D")
+        .toLowerCase()
+        .trim();
+}
+function tokenize(value: string) {
+    return normalizeText(value)
+        .split(/\s+/)
+        .filter(Boolean);
+}
 
+function getSearchScore(card: GameCard, keyword: string) {
+    const query = normalizeText(keyword);
+    if (!query) return 100;
+
+    const queryWords = tokenize(query);
+
+    const name = normalizeText(card.name);
+    const id = normalizeText(card.id.replaceAll("-", " "));
+    const group = normalizeText(card.groupLabel);
+    const functionText = normalizeText(card.functionText);
+
+    // Ưu tiên cao nhất: tên khớp trực tiếp
+    if (name === query) return 100;
+    if (name.startsWith(query)) return 90;
+    if (name.includes(query)) return 80;
+
+    // Gõ không dấu theo id: ma doi, den dau, ong tu...
+    if (id === query) return 95;
+    if (id.startsWith(query)) return 85;
+    if (id.includes(query)) return 75;
+
+    // Tất cả từ khóa đều nằm trong tên hoặc id
+    const allWordsInName = queryWords.every(
+        (word) => name.includes(word) || id.includes(word)
+    );
+    if (allWordsInName) return 70;
+
+    // Search theo nhóm: ma, dan lang, bao vat
+    if (group === query) return 65;
+    if (group.includes(query)) return 55;
+
+    // Phụ trợ: chỉ search functionText, không search story
+    const allWordsInFunction = queryWords.every((word) =>
+        functionText.includes(word)
+    );
+    if (allWordsInFunction) return 35;
+
+    return 0;
+}
+// function isRoughMatch(source: string, keyword: string) {
+//     const normalizedSource = normalizeText(source);
+//     const normalizedKeyword = normalizeText(keyword);
+
+//     if (!normalizedKeyword) return true;
+
+//     return (
+//         normalizedSource.includes(normalizedKeyword) ||
+//         normalizedKeyword
+//             .split(" ")
+//             .filter(Boolean)
+//             .every((word) => normalizedSource.includes(word))
+//     );
+// }
 export default function ProductCardLibrary() {
     const [activeGroup, setActiveGroup] = useState<CardGroup>("all");
     const [search, setSearch] = useState("");
     const [selectedCard, setSelectedCard] = useState<GameCard | null>(null);
 
     const filteredCards = useMemo(() => {
-        const keyword = search.trim().toLowerCase();
+        const keyword = search.trim();
 
-        return cards.filter((card) => {
-            const matchGroup = activeGroup === "all" || card.group === activeGroup;
+        return cards
+            .map((card) => ({
+                card,
+                score: getSearchScore(card, keyword),
+            }))
+            .filter(({ card, score }) => {
+                const matchGroup = activeGroup === "all" || card.group === activeGroup;
+                const matchSearch = keyword.length === 0 || score > 0;
 
-            const matchSearch =
-                keyword.length === 0 ||
-                card.name.toLowerCase().includes(keyword) ||
-                card.groupLabel.toLowerCase().includes(keyword) ||
-                card.functionText.toLowerCase().includes(keyword) ||
-                card.story?.toLowerCase().includes(keyword);
-
-            return matchGroup && matchSearch;
-        });
+                return matchGroup && matchSearch;
+            })
+            .sort((a, b) => b.score - a.score)
+            .map(({ card }) => card);
     }, [activeGroup, search]);
 
     return (
@@ -469,7 +537,9 @@ export default function ProductCardLibrary() {
 
             <div className="mb-5 flex items-center justify-between gap-4">
                 <p className="text-sm font-semibold text-[#a7a7a7]">
-                    Đang hiển thị <span className="text-[#ffae17]">{filteredCards.length}</span> thẻ
+                    Đang hiển thị{" "}
+                    <span className="font-black text-[#ffae17]">{filteredCards.length}</span>{" "}
+                    thẻ bài
                 </p>
 
                 {search || activeGroup !== "all" ? (
@@ -493,30 +563,22 @@ export default function ProductCardLibrary() {
                             key={card.id}
                             type="button"
                             onClick={() => setSelectedCard(card)}
-                            className="group overflow-hidden rounded-[30px] border border-white/10 bg-[#1a1a1a] text-left transition duration-300 hover:-translate-y-1 hover:bg-[#222222]"
+                            className="group overflow-hidden rounded-[28px] border border-white/10 bg-[#181818] p-4 shadow-[0_18px_60px_rgba(0,0,0,0.32)] transition duration-300 hover:-translate-y-1 hover:border-[#ffae17]/35 hover:bg-[#202020]"
                         >
-                            <div className="relative mx-auto mt-5 aspect-[3/4] w-[78%] overflow-hidden rounded-[22px] border border-white/10 bg-[#101010] shadow-[0_22px_70px_rgba(0,0,0,0.42)]">
+                            <div className="relative aspect-[3/4] w-full overflow-hidden rounded-[22px] bg-[#0f0f0f]">
                                 <Image
                                     src={card.image}
                                     alt={card.name}
                                     fill
-                                    className="object-cover transition duration-500 group-hover:scale-[1.04]"
-                                    sizes="(max-width: 640px) 70vw, (max-width: 1024px) 34vw, 240px"
+                                    className="object-contain p-2 transition duration-500 group-hover:scale-[1.025]"
+                                    sizes="(max-width: 640px) 80vw, (max-width: 1024px) 36vw, 250px"
                                 />
                             </div>
 
-                            <div className="p-5 pt-4">
-                                <div className="mb-3 inline-flex rounded-full bg-[#ffae17]/12 px-3 py-1 text-[11px] font-black uppercase tracking-[0.16em] text-[#ffae17]">
-                                    {card.groupLabel}
-                                </div>
-
-                                <h3 className="text-2xl font-black tracking-[-0.03em] text-[#f2f2f2]">
-                                    {card.name}
-                                </h3>
-
-                                <div className="mt-5 inline-flex rounded-full bg-[#252525] px-4 py-2 text-xs font-black text-[#f2f2f2] group-hover:bg-[#ffae17] group-hover:text-[#111111]">
+                            <div className="flex justify-center pt-4">
+                                <span className="inline-flex rounded-full bg-[#252525] px-5 py-2.5 text-xs font-black text-[#f2f2f2] transition group-hover:bg-[#ffae17] group-hover:text-[#111111]">
                                     Xem chi tiết
-                                </div>
+                                </span>
                             </div>
                         </button>
                     ))}
