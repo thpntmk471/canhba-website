@@ -419,9 +419,9 @@ export default function ProductCardLibrary() {
             <div className="mb-6 rounded-[34px] border border-white/10 bg-[#191919] p-5 shadow-[0_20px_70px_rgba(0,0,0,0.3)] sm:p-6 lg:p-8">
                 <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
                     <div>
-                        <div className="inline-flex rounded-full bg-[#303030] px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-[#ffae17]">
+                        {/* <div className="inline-flex rounded-full bg-[#303030] px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-[#ffae17]">
                             Card Library
-                        </div>
+                        </div> */}
 
                         <h2 className="mt-5 text-[34px] font-black leading-tight tracking-[-0.04em] text-[#f2f2f2] sm:text-5xl">
                             Tất cả thẻ trong bộ bài
