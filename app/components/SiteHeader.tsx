@@ -4,6 +4,7 @@ import OpenChatButton from "./OpenChatButton";
 
 const navItems = [
     { href: "/", label: "Trang chủ" },
+    { href: "/story", label: "Câu chuyện" },
     { href: "/product", label: "Sản phẩm" },
     { href: "/contact", label: "Liên hệ" },
 ];
@@ -55,6 +56,7 @@ export default function SiteHeader() {
                     >
                         Xem bộ bài
                     </Link>
+
                     <OpenChatButton className="rounded-xl border border-[#ffbf47]/35 bg-[#ffbf47] px-4 py-2 text-sm font-bold text-[#2a0c0f] transition hover:brightness-95">
                         Hỏi luật ngay
                     </OpenChatButton>

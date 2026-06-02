@@ -17,7 +17,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "CANHBA | Board Game • AR • AI",
-  description: "Website quảng cáo board game, tích hợp AR và Chat AI hỏi luật.",
+  description: "Website quảng cáo board game Canh Ba, tích hợp AR và Chat AI hỏi luật.",
   icons: {
     icon: "/icon.png",
     shortcut: "/icon.png",
@@ -33,12 +33,12 @@ export default function RootLayout({
   return (
     <html lang="vi">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} min-h-screen bg-[#140607] font-sans text-[#f3ddb5] antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} min-h-screen bg-[#050505] font-sans text-[#f2f2f2] antialiased`}
       >
-        <div className="relative flex min-h-screen flex-col overflow-x-hidden bg-[#140607]">
-          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,138,0,0.12),transparent_35%),radial-gradient(circle_at_bottom,rgba(120,8,18,0.22),transparent_40%)]" />
+        <div className="relative flex min-h-screen flex-col overflow-x-hidden bg-[#050505]">
+          <div className="pointer-events-none fixed inset-0 bg-[radial-gradient(circle_at_top,rgba(255,174,23,0.12),transparent_32%),radial-gradient(circle_at_bottom_right,rgba(255,174,23,0.06),transparent_34%)]" />
           <SiteHeader />
-          <div className="relative flex-1">{children}</div>
+          <main className="relative flex-1 pb-28 md:pb-0">{children}</main>
           <SiteFooter />
           <ChatWidget />
         </div>

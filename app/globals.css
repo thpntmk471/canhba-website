@@ -4,9 +4,15 @@ html {
   scroll-behavior: smooth;
 }
 
+html,
 body {
-  background: #140607;
-  color: #f3ddb5;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  background: #050505;
+  color: #f2f2f2;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -16,7 +22,22 @@ body {
   box-sizing: border-box;
 }
 
-img {
+img,
+video,
+iframe {
   max-width: 100%;
-  height: auto;
+}
+
+::selection {
+  background: #ffae17;
+  color: #111111;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }

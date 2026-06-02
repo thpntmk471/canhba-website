@@ -1,16 +1,28 @@
 "use client";
 
-type Props = {
-    children: React.ReactNode;
-    className?: string;
+import type { ButtonHTMLAttributes, ReactNode } from "react";
+
+type OpenChatButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
+    children: ReactNode;
 };
 
-export default function OpenChatButton({ children, className }: Props) {
+export default function OpenChatButton({
+    children,
+    className = "",
+    type = "button",
+    onClick,
+    ...props
+}: OpenChatButtonProps) {
     return (
         <button
-            type="button"
-            onClick={() => window.dispatchEvent(new Event("open-canhba-chat"))}
+            type={type}
             className={className}
+            onClick={(event) => {
+                onClick?.(event);
+
+                window.dispatchEvent(new Event("open-canhba-chat"));
+            }}
+            {...props}
         >
             {children}
         </button>
