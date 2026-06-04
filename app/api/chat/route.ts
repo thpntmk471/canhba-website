@@ -77,7 +77,7 @@ function detectIntent(message: string): ChatIntent {
 function getKnowledgeRules() {
   return {
     answerRules: canhbaKnowledge.answerRules ?? [],
-    generalRules: canhbaKnowledge.generalRules ?? canhbaKnowledge.rules ?? [],
+    generalRules: canhbaKnowledge.generalRules ?? [],
   };
 }
 
