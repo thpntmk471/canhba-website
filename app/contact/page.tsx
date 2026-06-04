@@ -31,7 +31,7 @@ export default function ContactPage() {
                   Đơn vị
                 </div>
                 <div className="mt-1 font-semibold text-[#ffe6b8]">
-                  Công ty Cổ phần Veil Game — Dự án Canh Ba
+                  Nhóm khởi nghiệp Veil Game
                 </div>
               </div>
 

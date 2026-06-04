@@ -24,15 +24,6 @@ const filters: { id: CardGroup; label: string }[] = [
 
 const cards: GameCard[] = [
     {
-        id: "ong-tu",
-        name: "Ông Từ",
-        group: "dan-lang",
-        groupLabel: "Dân làng",
-        image: "/images/cards/ong-tu.jpg",
-        functionText: "Mỗi canh chọn một người để bảo vệ khỏi điều dữ.",
-        story: "Tui là Ông Từ, người coi sóc cái đình cổ ở mé rìa làng Định Yên đã gần trọn một đời.\nCả đời tui quen mùi khói nhang, tiếng mõ khuya, tiếng gió lùa qua mấy cây cột gỗ mục. Người trong làng có thể quên mấy điều kiêng kỵ ông bà để lại, chớ tui thì không dám quên. Bởi có những luật lệ không phải để thờ cúng cho có, mà là để giữ cho người sống còn được yên thân.\nMấy bữa rày, đình có chuyện lạ. Cửa đã khóa, vậy mà ngoài sân vẫn nghe tiếng chân. Đèn dầu tự tắt giữa khuya. Có bóng người đứng nép sau cột cái, áo quần ướt lạnh như mới từ dưới sông lên.\nTui biết, tới Canh Ba, chợ Định Yên không còn là chợ của người sống nữa. Có thứ gì đó đã trà trộn vô làng, đội lốt người quen, nói cười như người quen, nhưng đôi mắt thì lạnh ngắt.\nTui không dám nói lớn. Mỗi canh, tui chỉ lặng lẽ chọn một người để giữ lại, đốt nén nhang, đọc lời khấn cũ, mong che họ khỏi điều dữ.\nNhưng thiệt lòng, tui cũng không chắc mình đang bảo vệ người vô tội… hay đang giữ lại một thứ còn đáng sợ hơn ma."
-    },
-    {
         id: "chieu-dinh-yen",
         name: "Chiếu Định Yên",
         group: "bao-vat",
@@ -183,6 +174,15 @@ Trong game, Khăn Rằn giúp người giữ nó giảm bớt một lá phiếu 
 Nó gợi cảm giác đời thường, gần gũi và gắn với nhịp sống lao động của người dân quê.
 
 Trong game, Thúng giúp một người được nói thêm trong thời gian ngắn trước cả làng, tạo cơ hội để họ giải thích, thuyết phục hoặc tự bảo vệ mình trước khi mọi người đưa ra quyết định.`,
+    },
+    {
+        id: "ong-tu",
+        name: "Ông Từ",
+        group: "dan-lang",
+        groupLabel: "Dân làng",
+        image: "/images/cards/ong-tu.jpg",
+        functionText: "Mỗi canh chọn một người để bảo vệ khỏi điều dữ.",
+        story: "Tui là Ông Từ, người coi sóc cái đình cổ ở mé rìa làng Định Yên đã gần trọn một đời.\nCả đời tui quen mùi khói nhang, tiếng mõ khuya, tiếng gió lùa qua mấy cây cột gỗ mục. Người trong làng có thể quên mấy điều kiêng kỵ ông bà để lại, chớ tui thì không dám quên. Bởi có những luật lệ không phải để thờ cúng cho có, mà là để giữ cho người sống còn được yên thân.\nMấy bữa rày, đình có chuyện lạ. Cửa đã khóa, vậy mà ngoài sân vẫn nghe tiếng chân. Đèn dầu tự tắt giữa khuya. Có bóng người đứng nép sau cột cái, áo quần ướt lạnh như mới từ dưới sông lên.\nTui biết, tới Canh Ba, chợ Định Yên không còn là chợ của người sống nữa. Có thứ gì đó đã trà trộn vô làng, đội lốt người quen, nói cười như người quen, nhưng đôi mắt thì lạnh ngắt.\nTui không dám nói lớn. Mỗi canh, tui chỉ lặng lẽ chọn một người để giữ lại, đốt nén nhang, đọc lời khấn cũ, mong che họ khỏi điều dữ.\nNhưng thiệt lòng, tui cũng không chắc mình đang bảo vệ người vô tội… hay đang giữ lại một thứ còn đáng sợ hơn ma."
     },
     {
         id: "ba-dong",
@@ -388,6 +388,7 @@ function getGroupCount(group: CardGroup) {
     if (group === "all") return cards.length;
     return cards.filter((card) => card.group === group).length;
 }
+
 function normalizeText(value: string) {
     return value
         .normalize("NFD")
@@ -397,6 +398,7 @@ function normalizeText(value: string) {
         .toLowerCase()
         .trim();
 }
+
 function tokenize(value: string) {
     return normalizeText(value)
         .split(/\s+/)
@@ -405,6 +407,7 @@ function tokenize(value: string) {
 
 function getSearchScore(card: GameCard, keyword: string) {
     const query = normalizeText(keyword);
+
     if (!query) return 100;
 
     const queryWords = tokenize(query);
@@ -414,48 +417,37 @@ function getSearchScore(card: GameCard, keyword: string) {
     const group = normalizeText(card.groupLabel);
     const functionText = normalizeText(card.functionText);
 
-    // Ưu tiên cao nhất: tên khớp trực tiếp
+    // Ưu tiên cao nhất: tên thẻ
     if (name === query) return 100;
-    if (name.startsWith(query)) return 90;
-    if (name.includes(query)) return 80;
+    if (name.startsWith(query)) return 95;
+    if (name.includes(query)) return 85;
 
     // Gõ không dấu theo id: ma doi, den dau, ong tu...
-    if (id === query) return 95;
-    if (id.startsWith(query)) return 85;
-    if (id.includes(query)) return 75;
+    if (id === query) return 98;
+    if (id.startsWith(query)) return 90;
+    if (id.includes(query)) return 80;
 
     // Tất cả từ khóa đều nằm trong tên hoặc id
-    const allWordsInName = queryWords.every(
+    const allWordsInNameOrId = queryWords.every(
         (word) => name.includes(word) || id.includes(word)
     );
-    if (allWordsInName) return 70;
+
+    if (allWordsInNameOrId) return 75;
 
     // Search theo nhóm: ma, dan lang, bao vat
     if (group === query) return 65;
     if (group.includes(query)) return 55;
 
-    // Phụ trợ: chỉ search functionText, không search story
+    // Phụ trợ: chỉ search chức năng, không search story vì story quá dài gây nhiễu
     const allWordsInFunction = queryWords.every((word) =>
         functionText.includes(word)
     );
+
     if (allWordsInFunction) return 35;
 
     return 0;
 }
-// function isRoughMatch(source: string, keyword: string) {
-//     const normalizedSource = normalizeText(source);
-//     const normalizedKeyword = normalizeText(keyword);
 
-//     if (!normalizedKeyword) return true;
-
-//     return (
-//         normalizedSource.includes(normalizedKeyword) ||
-//         normalizedKeyword
-//             .split(" ")
-//             .filter(Boolean)
-//             .every((word) => normalizedSource.includes(word))
-//     );
-// }
 export default function ProductCardLibrary() {
     const [activeGroup, setActiveGroup] = useState<CardGroup>("all");
     const [search, setSearch] = useState("");
@@ -484,34 +476,34 @@ export default function ProductCardLibrary() {
             id="card-library"
             className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-8"
         >
-            <div className="mb-6 rounded-[34px] border border-white/10 bg-[#191919] p-5 shadow-[0_20px_70px_rgba(0,0,0,0.3)] sm:p-6 lg:p-8">
-                <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
+            <div className="mb-6 rounded-[50px] border border-white/10 bg-[#181818] p-4 shadow-[0_18px_60px_rgba(0,0,0,0.28)] sm:p-5">
+                <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
                     <div>
-                        {/* <div className="inline-flex rounded-full bg-[#303030] px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-[#ffae17]">
+                        <div className="inline-flex rounded-full bg-[#ffae17]/12 px-3 py-1.5 text-[11px] font-black uppercase tracking-[0.16em] text-[#ffae17]">
                             Card Library
-                        </div> */}
+                        </div>
 
-                        <h2 className="mt-5 text-[34px] font-black leading-tight tracking-[-0.04em] text-[#f2f2f2] sm:text-5xl">
-                            Tất cả thẻ trong bộ bài
+                        <h2 className="mt-3 text-2xl font-black tracking-[-0.04em] text-[#f2f2f2] sm:text-3xl">
+                            Tất cả thẻ bài
                         </h2>
 
-                        <p className="mt-3 max-w-2xl text-sm leading-7 text-[#a7a7a7] sm:text-base">
-                            Lọc theo nhóm thẻ hoặc tìm nhanh bằng tên thẻ. Bên ngoài chỉ hiển thị ảnh,
-                            tên và loại thẻ; bấm vào từng thẻ để xem chức năng và câu chuyện chi tiết.
+                        <p className="mt-2 max-w-2xl text-sm leading-7 text-[#a7a7a7]">
+                            Lọc theo nhóm thẻ hoặc tìm nhanh bằng tên thẻ. Bấm vào từng thẻ để
+                            xem chức năng và câu chuyện chi tiết.
                         </p>
                     </div>
 
-                    <div className="rounded-[24px] border border-white/10 bg-[#111111] p-3">
+                    <div className="w-full lg:max-w-md">
                         <input
                             value={search}
                             onChange={(event) => setSearch(event.target.value)}
-                            placeholder="Tìm thẻ bài..."
-                            className="h-14 w-full rounded-[18px] border border-white/10 bg-[#1f1f1f] px-5 text-sm font-semibold text-[#f2f2f2] outline-none placeholder:text-[#777] focus:border-[#ffae17]/70"
+                            placeholder="Tìm theo tên thẻ..."
+                            className="h-12 w-full rounded-full border border-white/10 bg-[#101010] px-5 text-sm font-semibold text-[#f2f2f2] outline-none placeholder:text-[#777] focus:border-[#ffae17]/70"
                         />
                     </div>
                 </div>
 
-                <div className="mt-6 flex gap-2 overflow-x-auto pb-1">
+                <div className="mt-4 flex gap-2 overflow-x-auto pb-1">
                     {filters.map((filter) => {
                         const active = activeGroup === filter.id;
 
@@ -521,14 +513,16 @@ export default function ProductCardLibrary() {
                                 type="button"
                                 onClick={() => setActiveGroup(filter.id)}
                                 className={[
-                                    "shrink-0 rounded-full px-5 py-3 text-sm font-black transition",
+                                    "shrink-0 rounded-full px-4 py-2 text-xs font-black transition sm:text-sm",
                                     active
                                         ? "bg-[#ffae17] text-[#111111]"
                                         : "border border-white/10 bg-[#252525] text-[#a7a7a7] hover:bg-[#303030] hover:text-[#f2f2f2]",
                                 ].join(" ")}
                             >
                                 {filter.label}
-                                <span className="ml-2 opacity-70">{getGroupCount(filter.id)}</span>
+                                <span className="ml-2 opacity-70">
+                                    {getGroupCount(filter.id)}
+                                </span>
                             </button>
                         );
                     })}
@@ -538,7 +532,9 @@ export default function ProductCardLibrary() {
             <div className="mb-5 flex items-center justify-between gap-4">
                 <p className="text-sm font-semibold text-[#a7a7a7]">
                     Đang hiển thị{" "}
-                    <span className="font-black text-[#ffae17]">{filteredCards.length}</span>{" "}
+                    <span className="font-black text-[#ffae17]">
+                        {filteredCards.length}
+                    </span>{" "}
                     thẻ bài
                 </p>
 
@@ -549,7 +545,7 @@ export default function ProductCardLibrary() {
                             setSearch("");
                             setActiveGroup("all");
                         }}
-                        className="rounded-full border border-white/10 bg-[#1f1f1f] px-4 py-2 text-xs font-bold text-[#f2f2f2] hover:bg-[#292929]"
+                        className="rounded-full border border-white/10 bg-[#1f1f1f] px-4 py-2 text-xs font-bold text-[#f2f2f2] transition hover:bg-[#292929]"
                     >
                         Xóa lọc
                     </button>
@@ -565,12 +561,12 @@ export default function ProductCardLibrary() {
                             onClick={() => setSelectedCard(card)}
                             className="group overflow-hidden rounded-[28px] border border-white/10 bg-[#181818] p-4 shadow-[0_18px_60px_rgba(0,0,0,0.32)] transition duration-300 hover:-translate-y-1 hover:border-[#ffae17]/35 hover:bg-[#202020]"
                         >
-                            <div className="relative aspect-[3/4] w-full overflow-hidden rounded-[22px] bg-[#0f0f0f]">
+                            <div className="relative aspect-[3/4] w-full overflow-hidden rounded-[30px] bg-[#0f0f0f] shadow-[0_18px_45px_rgba(0,0,0,0.45)]">
                                 <Image
                                     src={card.image}
                                     alt={card.name}
                                     fill
-                                    className="object-contain p-2 transition duration-500 group-hover:scale-[1.025]"
+                                    className="object-cover p-[2.5px] transition duration-500 group-hover:scale-[1.025]"
                                     sizes="(max-width: 640px) 80vw, (max-width: 1024px) 36vw, 250px"
                                 />
                             </div>
@@ -588,6 +584,7 @@ export default function ProductCardLibrary() {
                     <div className="text-2xl font-black text-[#f2f2f2]">
                         Không tìm thấy thẻ phù hợp
                     </div>
+
                     <p className="mt-3 text-sm text-[#a7a7a7]">
                         Thử đổi từ khóa hoặc chọn lại nhóm thẻ khác.
                     </p>
@@ -613,7 +610,7 @@ export default function ProductCardLibrary() {
                                         src={selectedCard.image}
                                         alt={selectedCard.name}
                                         fill
-                                        className="object-cover"
+                                        className="object-contain p-2"
                                         sizes="330px"
                                     />
                                 </div>
@@ -647,11 +644,14 @@ export default function ProductCardLibrary() {
                                         </div>
 
                                         <div className="mt-4 max-h-[360px] overflow-y-auto pr-2 text-sm leading-7 text-[#a7a7a7]">
-                                            {selectedCard.story.split("\n").filter(Boolean).map((paragraph) => (
-                                                <p key={paragraph} className="mb-4 last:mb-0">
-                                                    {paragraph}
-                                                </p>
-                                            ))}
+                                            {selectedCard.story
+                                                .split("\n")
+                                                .filter(Boolean)
+                                                .map((paragraph) => (
+                                                    <p key={paragraph} className="mb-4 last:mb-0">
+                                                        {paragraph}
+                                                    </p>
+                                                ))}
                                         </div>
                                     </div>
                                 ) : null}
